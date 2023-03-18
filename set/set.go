@@ -11,7 +11,7 @@ func New() *Set{
 	return &Set{
 		setStruct : make(map[any]struct{}),
 		size: 0,
-		mutex: sync.Mutex{}
+		mutex: sync.Mutex{},
 	}
 }
 func (s *Set) Fill(items ...any) {
