@@ -7,11 +7,12 @@ type Set struct {
 	size      int64
 	mutex     sync.Mutex
 }
-func New() *Set{
+
+func New() *Set {
 	return &Set{
-		setStruct : make(map[any]struct{}),
-		size: 0,
-		mutex: sync.Mutex{}
+		setStruct: make(map[any]struct{}),
+		size:      0,
+		mutex:     sync.Mutex{},
 	}
 }
 func (s *Set) Fill(items ...any) {
@@ -37,4 +38,12 @@ func (s *Set) GetItems() []any {
 		s.mutex.Unlock()
 	}
 	return items
+}
+
+func (s *Set) Intersection(secondSet *Set) {
+	for k, _ := range s.setStruct {
+		s.mutex.Lock()
+		secondSet.setStruct[k] = struct{}{}
+		s.mutex.Unlock()
+	}
 }
